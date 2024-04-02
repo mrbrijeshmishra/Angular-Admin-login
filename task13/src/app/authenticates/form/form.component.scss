@@ -1,0 +1,33 @@
+.container-fluid{
+    background-color: #b7d5fc;
+}
+.row{
+    padding-right: 0!important;
+}
+.form-section{
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: -10px 4px 17px #1572ed33;
+}
+
+.register-text{
+    font-size: 13px;
+}
+
+input.ng-touched.ng-invalid{
+    border-color: red;
+}
+
+span{
+    color: red;
+}
+
+.first-img{
+    width: 95%;
+    height: 90%;
+}
+
+.sub-user{
+    font-size: 14px
+}

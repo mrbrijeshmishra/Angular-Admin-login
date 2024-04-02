@@ -1,0 +1,160 @@
+<div class="container-fluid">
+    <div class="table-responsive">
+        <h3 class="mb-4">Member Assistance</h3>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form #search = "ngForm" (ngSubmit)="onSearch(); search.reset()">
+            <div class="d-flex align-items-center">
+                    <button class="btn master-btn btn-primary me-4">Master Control</button>
+                    <input type="search" id="search" [(ngModel)]="searchValue"
+                    name="search" class="form-control search-field me-3" placeholder="Search">
+                    <button class="btn btn-primary search-btn me-3">Search</button>
+                    <button type="reset" class="btn btn-secondary search-btn" (click)="resetPage()">Reset</button>
+                </div>
+            </form>
+            <div class="d-flex align-items-center">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn modl" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    More Filter <i class="bi bi-funnel-fill"></i> <i class="bi bi-filetype-xls"></i>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Filters</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form #form="ngForm" (ngSubmit)="filterRecord(); form.reset();">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" id="from_date"
+                                                    [(ngModel)]="from_date" name="from_date">
+                                                <label for="from_date">From Date</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" id="to_date"
+                                                    [(ngModel)]="to_date" name="to_date" min="{{from_date}}">
+                                                <label for="to_date">To Date</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="kyc_status" [(ngModel)]="kyc_status"
+                                                    name="kyc_status">
+                                                    <option value="">Select Status</option>
+                                                    <option value="APPROVED">Verified</option>
+                                                    <option value="NOTAPPROVED">Not Verified</option>
+                                                </select>
+                                                <label for="kyc_status">Kyc Status</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="user_type" name="user_type"
+                                                    #categoryType (change)="subUser(categoryType.value)"
+                                                    [(ngModel)]="user_type">
+                                                    <option value="">Select User</option>
+                                                    <ng-container *ngFor="let cat of categoryReceived">
+                                                        <option [value]="cat.id">{{cat.type}}</option>
+                                                    </ng-container>
+                                                </select>
+                                                <label for="user_type">User Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4" *ngIf="subCatid===3">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="sub_user_type"
+                                                    [(ngModel)]="sub_user_type" name="sub_user_type">
+                                                    <option value="">Select Sub User</option>
+                                                    <ng-container *ngFor="let sub of subCategoryReceived">
+                                                        <option [value]="sub.id">{{sub.name}}</option>
+                                                    </ng-container>
+                                                </select>
+                                                <label for="sub_user_type">Sub User Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="subscription_plan"
+                                                    [(ngModel)]="subscription_plan" name="subscription_plan">
+                                                    <option value="">Select Subscription Plan</option>
+                                                </select>
+                                                <label for="subscription_plan">Subscription Plan</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Search
+                                        Record</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        (click)="form.reset()">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- </form> -->
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Clients Name</th>
+                    <th>Organization Name</th>
+                    <th>Signup Date</th>
+                    <th>Reg. Date</th>
+                    <th>Member Type</th>
+                    <th>Sub Member Type</th>
+                    <th>Active User Count</th>
+                    <th>KYC Status</th>
+                    <th>Subscription Plan</th>
+                    <th>Ls Pending Count</th>
+                    <th>Last Log User</th>
+                    <th>Last Log Date and Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let user of receivedData | paginate:{ itemsPerPage: searchData.recordperpage, currentPage: searchData.pagenumber, totalItems: total}">
+                    <td>{{user.sno}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.orgname}}</td>
+                    <td>{{user.signup_at}}</td>
+                    <td>{{user.register_at}}</td>
+                    <td>{{user.usertype}}</td>
+                    <td>{{user.subusertype}}</td>
+                    <td>{{user.staff_count}}</td>
+                    <td>{{user.request_status}}</td>
+                    <td>{{user.subscription}}</td>
+                    <td>{{user.service_count}}</td>
+                    <td>{{user.last_log_user}}</td>
+                    <td>{{user.last_log_timestamp}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="page-data mt-2">
+            <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+            <select class="page" #pagen (change)="pageSize(pagen.value)">
+                <option [value]="10" selected>10/Page</option>
+                <option [value]="15">15/Page</option>
+                <option [value]="20">20/Page</option>
+                <option [value]="25">25/Page</option>
+            </select>
+        </div>
+
+    </div>
+</div>

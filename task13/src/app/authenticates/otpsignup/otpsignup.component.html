@@ -1,0 +1,89 @@
+<div class="container-fluid otp-page pb-3">
+    <div class="container">
+        <br>
+        <!-- <h1> OTP Verify Mockup Example </h1> -->
+        <div class="row">
+            <div class="col-7">
+                <br><br>
+                <img class="first-img img-fluid" src="../../../assets/Screenshot 2024-03-21 103211.png" alt="">
+            </div>
+            <div class="col-5 otp-field-page">
+                <div>
+                    <img class="img-fluid w-50 mb-2"
+                        src="https://dev-platform.newage.market/assets/images/logos/name-logo.svg" alt="No Image">
+                    <h3>OTP Verification</h3>
+                    <h6 class="text-secondary">A verification code has been sent to your registered email and mobile
+                        number.</h6>
+                </div>
+                <hr>
+                <p>{{description}}</p>
+                <form class="form" [formGroup]="otpFields" (ngSubmit)="otpSubmit()">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form mb-3">
+                                <label for=""><small>Enter Email OTP</small></label>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="emailInput1" maxlength="1" placeholder="-" formControlName="otp1"> 
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="emailInput2" maxlength="1" placeholder="-" formControlName="otp2"> 
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="emailInput3" maxlength="1" placeholder="-" formControlName="otp3"> 
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="emailInput4" maxlength="1" placeholder="-" formControlName="otp4"> 
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="emailInput5" maxlength="1" placeholder="-" formControlName="otp5"> 
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="emailInput6" maxlength="1" placeholder="-" formControlName="otp6"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form mb-3">
+                                <label for=""><small>Enter Mobile OTP</small></label> <br>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="mobileInput1" maxlength="1" placeholder="-" formControlName="otp7">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="mobileInput2" maxlength="1" placeholder="-" formControlName="otp8">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="mobileInput3" maxlength="1" placeholder="-" formControlName="otp9">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="mobileInput4" maxlength="1" placeholder="-" formControlName="otp10">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="mobileInput5" maxlength="1" placeholder="-" formControlName="otp11">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="tel" class="form-control text-center" id="mobileInput6" maxlength="1" placeholder="-" formControlName="otp12">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-primary text-white border-non" type="submit" [disabled]="otpFields.invalid"> Validate OTP </button>
+                        </div>
+                        <div class="col">
+                            <p class="text-end">Your OTP will expire in {{otpExpiry}}</p>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
